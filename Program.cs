@@ -1,4 +1,4 @@
-namespace Simple_Calculator
+namespace Income_Tax_Calculator
 {
     internal static class Program
     {

@@ -1,4 +1,4 @@
-﻿namespace Simple_Calculator
+﻿namespace Income_Tax_Calculator
 {
     partial class Form1
     {
@@ -30,12 +30,8 @@
         {
             label1 = new Label();
             label2 = new Label();
-            label3 = new Label();
-            label4 = new Label();
-            txtOperand1 = new TextBox();
-            txtOperator = new TextBox();
-            txtOperand2 = new TextBox();
-            txtResult = new TextBox();
+            txtTaxableIncome = new TextBox();
+            txtTaxOwed = new TextBox();
             btnCalculate = new Button();
             btnExit = new Button();
             SuspendLayout();
@@ -43,84 +39,52 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(68, 68);
+            label1.Location = new Point(93, 98);
             label1.Name = "label1";
-            label1.Size = new Size(65, 15);
+            label1.Size = new Size(92, 15);
             label1.TabIndex = 0;
-            label1.Text = "Operand 1:";
+            label1.Text = "Taxable income:";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(68, 125);
+            label2.Location = new Point(93, 156);
             label2.Name = "label2";
-            label2.Size = new Size(57, 15);
+            label2.Size = new Size(100, 15);
             label2.TabIndex = 1;
-            label2.Text = "Operator:";
+            label2.Text = "Income tax owed:";
             // 
-            // label3
+            // txtTaxableIncome
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(68, 179);
-            label3.Name = "label3";
-            label3.Size = new Size(65, 15);
-            label3.TabIndex = 2;
-            label3.Text = "Operand 2:";
+            txtTaxableIncome.Location = new Point(263, 95);
+            txtTaxableIncome.Name = "txtTaxableIncome";
+            txtTaxableIncome.Size = new Size(188, 23);
+            txtTaxableIncome.TabIndex = 2;
             // 
-            // label4
+            // txtTaxOwed
             // 
-            label4.AutoSize = true;
-            label4.Location = new Point(68, 230);
-            label4.Name = "label4";
-            label4.Size = new Size(42, 15);
-            label4.TabIndex = 3;
-            label4.Text = "Result:";
-            // 
-            // txtOperand1
-            // 
-            txtOperand1.Location = new Point(186, 65);
-            txtOperand1.Name = "txtOperand1";
-            txtOperand1.Size = new Size(160, 23);
-            txtOperand1.TabIndex = 4;
-            // 
-            // txtOperator
-            // 
-            txtOperator.Location = new Point(186, 122);
-            txtOperator.Name = "txtOperator";
-            txtOperator.Size = new Size(46, 23);
-            txtOperator.TabIndex = 5;
-            // 
-            // txtOperand2
-            // 
-            txtOperand2.Location = new Point(186, 176);
-            txtOperand2.Name = "txtOperand2";
-            txtOperand2.Size = new Size(160, 23);
-            txtOperand2.TabIndex = 6;
-            // 
-            // txtResult
-            // 
-            txtResult.Location = new Point(186, 227);
-            txtResult.Name = "txtResult";
-            txtResult.ReadOnly = true;
-            txtResult.Size = new Size(160, 23);
-            txtResult.TabIndex = 7;
+            txtTaxOwed.Location = new Point(263, 153);
+            txtTaxOwed.Name = "txtTaxOwed";
+            txtTaxOwed.ReadOnly = true;
+            txtTaxOwed.Size = new Size(188, 23);
+            txtTaxOwed.TabIndex = 3;
             // 
             // btnCalculate
             // 
-            btnCalculate.Location = new Point(68, 303);
+            btnCalculate.Location = new Point(93, 231);
             btnCalculate.Name = "btnCalculate";
-            btnCalculate.Size = new Size(121, 23);
-            btnCalculate.TabIndex = 8;
+            btnCalculate.Size = new Size(153, 23);
+            btnCalculate.TabIndex = 4;
             btnCalculate.Text = "&Calculate";
             btnCalculate.UseVisualStyleBackColor = true;
             btnCalculate.Click += btnCalculate_Click;
             // 
             // btnExit
             // 
-            btnExit.Location = new Point(208, 303);
+            btnExit.Location = new Point(287, 231);
             btnExit.Name = "btnExit";
-            btnExit.Size = new Size(127, 23);
-            btnExit.TabIndex = 9;
+            btnExit.Size = new Size(164, 23);
+            btnExit.TabIndex = 5;
             btnExit.Text = "&Exit";
             btnExit.UseVisualStyleBackColor = true;
             btnExit.Click += btnExit_Click;
@@ -131,19 +95,16 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = btnExit;
-            ClientSize = new Size(439, 378);
+            ClientSize = new Size(573, 331);
             Controls.Add(btnExit);
             Controls.Add(btnCalculate);
-            Controls.Add(txtResult);
-            Controls.Add(txtOperand2);
-            Controls.Add(txtOperator);
-            Controls.Add(txtOperand1);
-            Controls.Add(label4);
-            Controls.Add(label3);
+            Controls.Add(txtTaxOwed);
+            Controls.Add(txtTaxableIncome);
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "Form1";
             Text = "Form1";
+            Load += Form1_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -152,12 +113,8 @@
 
         private Label label1;
         private Label label2;
-        private Label label3;
-        private Label label4;
-        private TextBox txtOperand1;
-        private TextBox txtOperator;
-        private TextBox txtOperand2;
-        private TextBox txtResult;
+        private TextBox txtTaxableIncome;
+        private TextBox txtTaxOwed;
         private Button btnCalculate;
         private Button btnExit;
     }

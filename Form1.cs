@@ -1,96 +1,92 @@
-namespace Simple_Calculator
+namespace Income_Tax_Calculator
 {
     public partial class Form1 : Form
     {
+        //two variables to calculate tax and round it off   s   
+        decimal tax;
+        decimal RoundedTax;
         public Form1()
         {
             InitializeComponent();
         }
-        // this event handler is triggered when the calculate button is clicked
-        // chekcs if the validator passed the validation for operands and operator
-        //converts and assigns the inputs from the user 
-        //checks if the operator is division and operand 2 is 0 and returns error
-        //Rounds off the result to 4 decimal places 
-        //assigns the result to the textbox
+        //Event handler triggers calculateTaxOnIncome() function when calculate button is clicked
+        //first if statement validates the input using function inputValidation
+        //second if statement checks if the number is a negative number
+        ///last statement outputs the result on the text box
         private void btnCalculate_Click(object sender, EventArgs e)
         {
-            if (!validator() || !operatorValidator())
+            if (!inputValidation())
             {
+                
                 return;
-            }
-            decimal op1 = Convert.ToDecimal(txtOperand1.Text);
-            decimal op2 = Convert.ToDecimal(txtOperand2.Text);
-            string opr = Convert.ToString(txtOperator.Text);
-            if (opr == "/" && op2 == 0) 
-            {
-                MessageBox.Show("cant divide by zero", "zero error");
-                txtOperand2.Clear();
-                return;
-            }
-            txtResult.Text = Convert.ToString(Math.Round(Calculate(op1, op2, opr), 4).ToString("F4"));
-            txtOperand1.Focus();
 
+            }
+            decimal income = Convert.ToDecimal(txtTaxableIncome.Text);
+            if (income < 0)
+            {
+                MessageBox.Show("Input cannot be a negative number", "cant be a negative number");
+                txtTaxableIncome.Clear();
+                return;
+            }
+            calculateTaxOnIncome(income);
+            
+            txtTaxOwed.Text = RoundedTax.ToString("c");
         }
-        //calculates based on the operator choice by the user
-        //takes three arguments
-        private static  decimal Calculate(decimal op1, decimal op2, string opr)
+        //nested if-else if statements to identify tax brackets in this function
+        public void calculateTaxOnIncome(decimal income)
         {
-            decimal result = 0;
-            if (opr == "+")
+            if (income >= 0 && income <= 11000)
             {
-                result = op1 + op2;
+                tax = income * 0.1m;
             }
-            else if (opr == "-")
+            else if (income > 11000 && income <= 44725)
             {
-                result = op1 - op2;
+                tax = 1100 + (0.12m * (income - 11000));
             }
-            else if (opr == "*")
+            else if (income > 44725 && income <= 95375)
             {
-                result = op1 * op2;
+                tax = 5147 + (0.22m * (income - 44725));
             }
-            else if (opr == "/" && op2!=0)
+            else if (income > 95375 && income <= 182100)
             {
-                result = op1 / op2;
+                tax = 16290 + (0.24m * (income - 95375));
             }
-            return result;
+            else if (income > 182100 && income <= 231250)
+            {
+                tax = 37104 + (0.32m * (income - 182100));
+            }
+            else if (income > 231250 && income <= 578125)
+            {
+                tax = 52832 + (0.35m * (income - 231250));
+            }
+            else if (income > 578125)
+            {
+                tax = 174238.25m + (0.37m * (income - 578125));
+            }
+            RoundedTax = Math.Round((decimal)tax, 2);
         }
-        //validates the operand 1 and operand 2 inout by the user
-        //uses decimal.TryParse for validation
-        //clears the boxes if invalid input
-        //error message box shown if invalid 
-        private bool validator()
+        //this event handler triggers an exit from the program 
+        private void btnExit_Click(object sender, EventArgs e)
         {
-            if ((!decimal.TryParse(txtOperand1.Text, out decimal amt)) || (!decimal.TryParse(txtOperand2.Text, out decimal amt2)))
+            Application.Exit();
+        }
+        //validating if the input is valid using decimal.TryParse which returns a message box with an error message if input invalid
+        public bool inputValidation()
+        {
+            if (!decimal.TryParse(txtTaxableIncome.Text, out decimal amt))
             {
-                MessageBox.Show("Invalid Operands. Please input correct operand(s)", "invalid operands");
-                txtOperand1.Clear();
-                txtOperand2.Clear();
+                txtTaxOwed.Clear();
+                MessageBox.Show("Please enter a valid input", "Invalid input");
+                txtTaxableIncome.Clear();
+
                 return false;
             }
             return true;
         }
-        //Validates the operator input by the user
-        //error message box shown if invalid operator
-        private bool operatorValidator()
-        {
-            string opr = txtOperator.Text;
-            if (opr == "+" || opr == "-" || opr == "*" || opr == "/")
-            {
-                return true;
-            }
-            else
-            {
-                MessageBox.Show("please input a valid operator", "invalid operator");
-                txtOperator.Clear();
-                return false;
-            }
 
-        }
-        //exits the application
-
-        private void btnExit_Click(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
-            Application.Exit();
+
         }
     }
 }
